@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Изменение роли пользователя
+{% endblock %}
+
+{% block body %}
+
+<head>
+    <title>Изменить роль пользователя</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: auto;
+            max-width: 600px;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Изменить роль пользователя</h1>
+        <form action="{{ url_for('change_role') }}" method="post">
+            <label for="username">Имя пользователя:</label>
+            <input type="text" name="username" required><br><br>
+            <label for="role">Роль:</label>
+            <select name="role" required>
+                <option value="">Выберите роль</option>
+                <option value="Admin">Admin</option>
+                <option value="Creator">Creator</option>
+                <option value="Viewer">Viewer</option>
+            </select><br><br>
+            <button type="submit">Подтвердить</button>
+        </form>
+    </div>
+</body>
+    {% block message %}
+		<center><span style="color: red;">{{ message }}</span></center>
+	{% endblock %}
+{% endblock %}

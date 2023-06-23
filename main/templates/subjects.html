@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Список предметов
+{% endblock %}
+
+{% block body %}
+
+<head>
+    <title>Список предметов</title>
+    <style>
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+        th {
+            background-color: #ccc;
+        }
+        form {
+            display: inline;
+        }
+        button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .filter-panel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .filter-panel label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form action="{{ url_for('add_subject') }}">
+        <button type="submit" class="add-btn">Добавить предмет</button>
+    </form>
+    <div class="filter-panel">
+        <form method="post">
+            <label for="name_filter">Название товара:</label>
+            <input type="text" id="name_filter" name="name_filter">
+            <label for="quantity_filter">Количество:</label>
+            <input type="text" id="quantity_filter" name="quantity_filter">
+            <button type="submit">Фильтровать</button>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Количество</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subject in subjects %}
+            <tr>
+                <td>{{ subject.name }}</td>
+                <td>{{ subject.quantity }}</td>
+                <td>
+                    <form action="{{ url_for('delete_subject', id=subject.id) }}" method="post">
+                        <button type="submit">Удалить</button>
+                    </form>
+                    <form action="{{ url_for('edit_subject', id=subject.id) }}" method="get">
+                        <button type="submit">Редактировать</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock %}
+

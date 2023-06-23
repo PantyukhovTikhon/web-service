@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Предметы
+{% endblock %}
+
+{% block body %}
+
+<head>
+    <title>Добавление нового предмета</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: auto;
+            max-width: 600px;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Добавление нового предмета</h1>
+        <form method="POST" action="add_subject">
+            <label for="name">Название:</label>
+            <input type="text" name="name" required><br><br>
+            <label for="quantity">Количество:</label>
+            <input type="number" name="quantity" required><br><br>
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+</body>
+{% endblock %}

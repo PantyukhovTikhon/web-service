@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Клиенты
+{% endblock %}
+
+{% block body %}
+
+<head>
+    <title>Добавление нового клиента</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: auto;
+            max-width: 600px;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Добавление нового клиента</h1>
+        <form method="POST" action="add_customer">
+            <label for="name">Имя:</label>
+            <input type="text" name="name" required><br><br>
+            <label for="address">Адрес:</label>
+            <input type="text" name="address" required><br><br>
+            <label for="passport_details">Данные паспорта:</label>
+            <input type="text" name="passport_details" required><br><br>
+            <label for="phone_number">Номер телефона:</label>
+            <input type="text" name="phone_number" required><br><br>
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+</body>
+{% endblock %}

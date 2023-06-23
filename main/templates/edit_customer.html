@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Клиенты
+{% endblock %}
+
+{% block body %}
+
+<head>
+    <title>Редактировать клиента</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: auto;
+            max-width: 600px;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Редактировать клиента</h1>
+        <form action="{{ url_for('edit_customer', id=customer.id) }}" method="post">
+            <label for="name">Имя:</label>
+            <input type="text" name="name" value="{{ customer.name }}"><br><br>
+            <label for="address">Адрес:</label>
+            <input type="text" name="address" value="{{ customer.address }}"><br><br>
+            <label for="passport_details">Паспортные данные:</label>
+            <input type="text" name="passport_details" value="{{ customer.passport_details }}"><br><br>
+            <label for="phone_number">Номер телефона:</label>
+            <input type="text" name="phone_number" value="{{ customer.phone_number }}"><br><br>
+            <input type="submit" value="Редактировать">
+        </form>
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+
+  main:
+    build: ./main
+    container_name: docker-main
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    command: flask run --host=0.0.0.0 --port=443
+    environment:
+      AUTH_SERVICE_URL: https://auth:80
+      SECRET_KEY: h8jb8YRt4nCw8PnSMNHPVOXgZ3kZzn6-zlQZoKscgzE=
+      SQLALCHEMY_DATABASE_URI: gAAAAABkSDIXxForUE_obMCmLDazxYKjm6sM9e37lq91Fv5AUlWxnxAUStXhMof7cXeFiq3u0wuYSm_wBf4fSC2YguZVjBP4t2wSerliFwNwaGS5k0hbPxtVx3A6P3xH_sy4wR3LOXVcna3yW9qahmzW7myfoHY6_Q==
+      WINDOW_SIZE: 60
+      MAX_REQUESTS: 10
+    networks:
+      - docker-network
+
+  auth:
+    build: ./auth
+    container_name: docker-auth
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    command: flask run --host=0.0.0.0 --port=80
+    environment:
+      MAIN_SERVICE_URL: https://main:443
+      SECRET_KEY: h8jb8YRt4nCw8PnSMNHPVOXgZ3kZzn6-zlQZoKscgzE=
+      SQLALCHEMY_DATABASE_URI: gAAAAABkSDIXxForUE_obMCmLDazxYKjm6sM9e37lq91Fv5AUlWxnxAUStXhMof7cXeFiq3u0wuYSm_wBf4fSC2YguZVjBP4t2wSerliFwNwaGS5k0hbPxtVx3A6P3xH_sy4wR3LOXVcna3yW9qahmzW7myfoHY6_Q==
+      WINDOW_SIZE: 60
+      MAX_REQUESTS: 10
+    networks:
+      - docker-network
+
+networks:
+  docker-network:
+    driver: bridge

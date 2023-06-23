@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Панель администратора
+{% endblock %}
+
+{% block body %}
+
+<head>
+    <title>Панель администратора</title>
+</head>
+<style>
+    button {
+        font-size: 24px;
+        padding: 20px;
+        border-radius: 10px;
+        display: block;
+        margin: 0 auto;
+        margin-top: 50px;
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <form action="{{ url_for('change_role') }}" method="get">
+        <button type="submit">Изменить роль пользователя</button>
+    </form>
+    <form action="{{ url_for('logs') }}" method="post">
+        <button type="submit">Журнал аудита</button>
+    </form>
+</body>
+{% endblock %}

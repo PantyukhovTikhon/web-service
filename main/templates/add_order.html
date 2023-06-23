@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Заказы
+{% endblock %}
+
+{% block body %}
+
+<head>
+    <title>Добавить новый заказ</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: auto;
+            max-width: 600px;
+            padding: 20px;
+            text-align: center;
+        }
+        div {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Добавить новый заказ</h1>
+        <form method="POST" action="add_order">
+            <div>
+                <label for="customer_id">ID Клиента:</label>
+                <select name="customer_id" required>
+                    {% for id in customers_ids %}
+                        <option value="{{ id }}">{{ id }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="subject_name">Название товара:</label>
+                <select name="subject_name" required>
+                    {% for name in subjects_names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="quantity">Количество:</label>
+                <input type="number" name="quantity" required>
+            </div>
+            <div>
+                <button type="submit">Добавить</button>
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock %}

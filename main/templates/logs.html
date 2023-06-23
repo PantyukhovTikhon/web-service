@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Журнал аудита
+{% endblock %}
+
+{% block body %}
+
+<head>
+    <title>Журнал аудита</title>
+    <style>
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+        th {
+            background-color: #ccc;
+        }
+        form {
+            display: inline;
+        }
+        button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .filter-panel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .filter-panel label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form action="{{ url_for('delete_logs') }}" method="post">
+                        <button type="submit">Очистить логи</button>
+    </form>
+    <div class="filter-panel">
+        <form method="post">
+            <label for="username_filter">Имя пользователя:</label>
+            <input type="text" id="username_filter" name="username_filter">
+            <label for="action_filter">Действие:</label>
+            <input type="text" id="action_filter" name="action_filter">
+            <label for="created_at_filter">Дата создания:</label>
+            <input type="text" id="created_at_filter" name="created_at_filter">
+            <button type="submit">Фильтровать</button>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Имя пользователя</th>
+                <th>Действие</th>
+                <th>Дата создания</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in logs %}
+            <tr>
+                <td>{{ log.username }}</td>
+                <td>{{ log.action }}</td>
+                <td>{{ log.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Клиенты
+{% endblock %}
+
+{% block body %}
+<head>
+    <title>Список клиентов</title>
+    <style>
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+        th {
+            background-color: #ccc;
+        }
+        form {
+            display: inline;
+        }
+        button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .filter-panel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .filter-panel label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form action="{{ url_for('add_customer') }}">
+        <button type="submit" class="add-btn">Добавить клиента</button>
+    </form>
+    <div class="filter-panel">
+        <form method="post">
+            <label for="id_filter">ID:</label>
+            <input type="text" id="id_filter" name="id_filter">
+            <label for="name_filter">Имя:</label>
+            <input type="text" id="name_filter" name="name_filter">
+            <label for="address_filter">Адрес:</label>
+            <input type="text" id="address_filter" name="address_filter">
+            <label for="passport_details_filter">Паспортные данные:</label>
+            <input type="text" id="passport_details_filter" name="passport_details_filter">
+            <label for="phone_number_filter">Номер телефона:</label>
+            <input type="text" id="phone_number_filter" name="phone_number_filter">
+            <button type="submit">Фильтровать</button>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Адрес</th>
+                <th>Паспортные данные</th>
+                <th>Номер телефона</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td>{{ customer.id }}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.address }}</td>
+                <td>{{ customer.passport_details }}</td>
+                <td>{{ customer.phone_number }}</td>
+                <td>
+                    <form action="{{ url_for('delete_customer', id=customer.id) }}" method="post">
+                        <button type="submit">Удалить</button>
+                    </form>
+                    <form action="{{ url_for('edit_customer', id=customer.id) }}" method="get">
+                        <button type="submit">Редактировать</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock %}

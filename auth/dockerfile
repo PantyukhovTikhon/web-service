@@ -1,0 +1,27 @@
+FROM python:3.10.11
+
+WORKDIR /app/auth
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+COPY auth.py .
+COPY server.crt .
+COPY server.key .
+
+ENV FLASK_APP=auth.py
+ENV MAIN_SERVICE_URL=https://docker-main:443
+ENV SECRET_KEY=h8jb8YRt4nCw8PnSMNHPVOXgZ3kZzn6-zlQZoKscgzE=
+ENV SQLALCHEMY_DATABASE_URI=gAAAAABkSDIXxForUE_obMCmLDazxYKjm6sM9e37lq91Fv5AUlWxnxAUStXhMof7cXeFiq3u0wuYSm_wBf4fSC2YguZVjBP4t2wSerliFwNwaGS5k0hbPxtVx3A6P3xH_sy4wR3LOXVcna3yW9qahmzW7myfoHY6_Q==
+ENV WINDOW_SIZE=60
+ENV MAX_REQUESTS=10
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=80
+ENV FLASK_RUN_CERT=./server.crt
+ENV FLASK_RUN_KEY=./server.key
+
+EXPOSE 80
+
+CMD ["flask", "run", "--cert=/app/server.crt", "--key=/app/server.key"]
